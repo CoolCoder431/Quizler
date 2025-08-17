@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile - Quizler</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="navbar.css">
+<link rel="stylesheet" href="profile.css">
+</head>
+<body>
+<!-- Top Navigation Bar -->
+<nav class="top-navbar">
+  <div class="navbar-brand">
+    <span class="logo">🎯 Quizler</span>
+  </div>
+  <div class="navbar-menu">
+    <a href="/home" class="nav-link ">🏠 Home</a>
+    <a href="/quiz" class="nav-link">📝 Quiz</a>
+    <a href="/profile" class="nav-link active">👤 Profile</a>
+    <button onclick="logout()" class="nav-link logout" style="background: none; border: none; cursor: pointer; font-size: inherit; color: inherit; text-decoration: none;">🚪 Logout</button>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<div class="profile-container">
+  <div class="profile-header">
+    <div class="profile-avatar">
+      <span class="avatar-icon">👤</span>
+    </div>
+    <h1>John Doe</h1>
+    <p class="profile-subtitle">Quiz Enthusiast</p>
+  </div>
+
+  <div class="profile-stats">
+    <div class="stat-card">
+      <div class="stat-icon">🎯</div>
+      <div class="stat-number">42</div>
+      <div class="stat-label">Quizzes Taken</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">🏆</div>
+      <div class="stat-number">85%</div>
+      <div class="stat-label">Average Score</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">⚡</div>
+      <div class="stat-number">12</div>
+      <div class="stat-label">Streak Days</div>
+    </div>
+  </div>
+
+  <div class="quiz-history-section">
+    <h3>Quiz History</h3>
+    <div class="history-list">
+      <div class="history-item">
+        <div class="history-icon">📝</div>
+        <div class="history-details">
+          <div class="history-title">Sports Quiz - Medium</div>
+          <div class="history-meta">10 Questions • 2 hours ago</div>
+        </div>
+        <div class="history-score success">8/10</div>
+      </div>
+      
+      <div class="history-item">
+        <div class="history-icon">🏛️</div>
+        <div class="history-details">
+          <div class="history-title">Mythology Quiz - Hard</div>
+          <div class="history-meta">10 Questions • Yesterday</div>
+        </div>
+        <div class="history-score good">7/10</div>
+      </div>
+      
+      <div class="history-item">
+        <div class="history-icon">🌍</div>
+        <div class="history-details">
+          <div class="history-title">Geography Quiz - Easy</div>
+          <div class="history-meta">10 Questions • 2 days ago</div>
+        </div>
+        <div class="history-score success">9/10</div>
+      </div>
+
+      <div class="history-item">
+        <div class="history-icon">🐾</div>
+        <div class="history-details">
+          <div class="history-title">Animals Quiz - Medium</div>
+          <div class="history-meta">15 Questions • 3 days ago</div>
+        </div>
+        <div class="history-score good">11/15</div>
+      </div>
+
+      <div class="history-item">
+        <div class="history-icon">⚽</div>
+        <div class="history-details">
+          <div class="history-title">Sports Quiz - Easy</div>
+          <div class="history-meta">5 Questions • 1 week ago</div>
+        </div>
+        <div class="history-score success">5/5</div>
+      </div>
+
+      <div class="history-item">
+        <div class="history-icon">🏛️</div>
+        <div class="history-details">
+          <div class="history-title">Mythology Quiz - Medium</div>
+          <div class="history-meta">20 Questions • 1 week ago</div>
+        </div>
+        <div class="history-score average">12/20</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-actions">
+    <button class="profile-btn primary" onclick="window.location.href='/quiz'">Take New Quiz</button>
+    <button class="profile-btn secondary">Edit Profile</button>
+  </div>
+</div>
+<script src="logout.js"></script>
+</body>
+</html>

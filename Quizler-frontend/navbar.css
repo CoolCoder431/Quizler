@@ -1,0 +1,104 @@
+/* Top Navigation Bar */
+.top-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.8rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand .logo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar-menu {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.nav-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.nav-link.active {
+  color: #fff;
+  background: linear-gradient(90deg, #ff9966, #ff5e62);
+  font-weight: 600;
+}
+
+.nav-link.logout {
+  background: rgba(255, 94, 77, 0.2);
+  border: 1px solid rgba(255, 94, 77, 0.3);
+}
+
+.nav-link.logout:hover {
+  background: rgba(255, 94, 77, 0.3);
+  color: #fff;
+}
+
+/* Adjust body padding to account for fixed navbar */
+body {
+  padding-top: 90px;
+}
+
+/* Responsive navbar */
+@media (max-width: 768px) {
+  .top-navbar {
+    padding: 0.6rem 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .navbar-menu {
+    gap: 0.8rem;
+  }
+  
+  .nav-link {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .navbar-brand .logo {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-navbar {
+    flex-direction: column;
+    padding: 0.8rem 1rem;
+    gap: 0.5rem;
+  }
+  
+  .navbar-menu {
+    justify-content: center;
+    width: 100%;
+  }
+  
+  body {
+    padding-top: 140px;
+  }
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home - Quizler</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="navbar.css">
+</head>
+<body>
+<!-- Top Navigation Bar -->
+<nav class="top-navbar">
+  <div class="navbar-brand">
+    <span class="logo">🎯 Quizler</span>
+  </div>
+  <div class="navbar-menu">
+    <a href="/home" class="nav-link active">🏠 Home</a>
+    <a href="/quiz" class="nav-link">📝 Quiz</a>
+    <a href="/profile" class="nav-link">👤 Profile</a>
+    <button onclick="logout()" class="nav-link logout" style="background: none; border: none; cursor: pointer; font-size: inherit; color: inherit; text-decoration: none;">🚪 Logout</button>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<div class="home-container">
+  <h1>Welcome to Quizler 🎯</h1>
+  <p>Test your knowledge with our interactive quizzes!</p>
+  
+  <div class="home-content">
+    <div class="feature-card">
+      <div class="card-icon">📝</div>
+      <h3>Play Quiz</h3>
+      <p>Challenge yourself with questions from various topics including Mythology, Sports, Geography, and Animals.</p>
+      <a href="/quiz" class="feature-btn">Start Quiz</a>
+    </div>
+    
+    <div class="feature-card">
+      <div class="card-icon">📊</div>
+      <h3>Track Progress</h3>
+      <p>Monitor your quiz performance and see how you improve over time.</p>
+      <a href="/profile" class="feature-btn">View Profile</a>
+    </div>
+  </div>
+</div>
+<script src="logout.js"></script>
+</body>
+</html>

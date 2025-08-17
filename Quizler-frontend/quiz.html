@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Quiz - Quizler</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="quiz.css" />
+<link rel="stylesheet" href="navbar.css">
+</head>
+<body>
+<!-- Top Navigation Bar -->
+<nav class="top-navbar">
+  <div class="navbar-brand">
+    <span class="logo">🎯 Quizler</span>
+  </div>
+  <div class="navbar-menu">
+    <a href="/home" class="nav-link">🏠 Home</a>
+    <a href="/quiz" class="nav-link active">📝 Quiz</a>
+    <a href="/profile" class="nav-link">👤 Profile</a>
+    <button onclick="logout()" class="nav-link logout" style="background: none; border: none; cursor: pointer; font-size: inherit; color: inherit; text-decoration: none;">🚪 Logout</button>
+  </div>
+</nav>
+
+<!-- Quiz Form -->
+<form id="quizForm" class="quiz-container">
+<h1>Customize Your Quiz 🎯</h1>
+<label for="questionCount">Number of Questions:</label>
+<input type="range" id="questionCount" name="questionCount" min="5" max="50" step="5" value="5" oninput="this.nextElementSibling.value = this.value">
+<output>5</output>
+<label>Select Difficulty:</label>
+<div class="difficulty-buttons">
+<button type="button" data-value="easy">Easy</button>
+<button type="button" data-value="medium">Medium</button>
+<button type="button" data-value="hard">Hard</button>
+</div>
+<input type="hidden" name="difficulty" id="difficultyInput">
+<label for="topics">Select Your Interest:</label>
+<select name="topics" id="topics">
+<option value="Mythology">Mythology</option>
+<option value="Sports">Sports</option>
+<option value="Geography">Geography</option>
+<option value="Animals">Animals</option>
+</select>
+<button type="submit">Start Quiz 🚀</button>
+</form>
+<script src="quiz-script.js" defer></script>
+<script src="logout.js"></script>
+</body>
+</html>
