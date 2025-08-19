@@ -13,7 +13,7 @@ form.addEventListener('submit', async (e) => {
     }
 
     try {
-        const res = await fetch('http://localhost:5001/signup', {
+        const res = await fetch('https://quizler-yu0r.onrender.com/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password, name })

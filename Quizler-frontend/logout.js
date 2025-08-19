@@ -1,6 +1,6 @@
 async function logout() {
     try {
-        const response = await fetch('http://localhost:5001/logout', {
+        const response = await fetch('https://quizler-yu0r.onrender.com/logout', {
             method: 'POST',
             credentials: 'include',
             headers: {

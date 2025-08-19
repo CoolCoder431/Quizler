@@ -9,7 +9,7 @@ form.addEventListener('submit', async (e) => {
     }
     try {
         console.log("About to send login request");
-        const res = await fetch('http://localhost:5001/login', {
+        const res = await fetch('https://quizler-yu0r.onrender.com/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })

@@ -10,7 +10,7 @@ require('dotenv').config();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors({ origin: process.env.CLIENT_ORIGIN, credentials: true }));
+app.use(cors({ origin: true, credentials: true })); // Allows all origins
 
 
 const PORT = process.env.PORT || 3000;
