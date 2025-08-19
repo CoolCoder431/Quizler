@@ -4,9 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let quizData = [];
   let currentIndex = 0;
-  let score = 0;
+  let userAnswers = {}; 
 
-  // Difficulty button selection
   document.querySelectorAll('.difficulty-buttons button').forEach(btn => {
     btn.addEventListener('click', () => {
       difficultyInput.value = btn.dataset.value;
@@ -15,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Quiz form submission
   quizForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -23,33 +21,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const difficulty = difficultyInput.value;
     const topic = document.querySelector('#topics').value;
 
-    if (!difficulty) { 
-      alert('Please select a difficulty!'); 
-      return; 
+    if (!difficulty) {
+      alert('Please select a difficulty!');
+      return;
     }
 
-    const categoryMap = { 
-      Mythology: 20, 
-      Sports: 21, 
-      Geography: 22, 
-      Animals: 27 
+    const categoryMap = {
+      Mythology: 20,
+      Sports: 21,
+      Geography: 22,
+      Animals: 27
     };
-    
+
     const categoryId = categoryMap[topic];
     const apiUrl = `https://opentdb.com/api.php?amount=${questionCount}&category=${categoryId}&difficulty=${difficulty}&type=multiple`;
 
     try {
       const res = await fetch(apiUrl);
       const data = await res.json();
-      
+
       if (!data.results.length) {
         alert(`No questions for ${topic} - ${difficulty}. Try a different combo.`);
         return;
       }
-      
+
       quizData = data.results;
       currentIndex = 0;
-      score = 0;
+      userAnswers = {}; // Reset the map
       quizForm.style.display = 'none';
       showQuestion();
     } catch (err) {
@@ -57,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Display current question
   function showQuestion() {
     document.querySelector('#questions')?.remove();
     const q = quizData[currentIndex];
@@ -67,13 +64,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const card = document.createElement('div');
     card.className = 'question-card';
 
-    // Question text
     const qEl = document.createElement('p');
     qEl.className = 'question-text';
     qEl.innerHTML = decodeHTMLEntities(`Q${currentIndex + 1}: ${q.question}`);
     card.appendChild(qEl);
 
-    // Answer options
     const allAnswers = shuffleArray([q.correct_answer, ...q.incorrect_answers]);
     const ul = document.createElement('ul');
     ul.className = 'options';
@@ -88,6 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
       input.name = 'answer';
       input.value = ans;
 
+      // Restore previous selection if exists
+      if (userAnswers[currentIndex] === ans) {
+        input.checked = true;
+      }
+
       const text = document.createElement('span');
       text.textContent = decodeHTMLEntities(ans);
 
@@ -99,11 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     card.appendChild(ul);
 
-    // Navigation buttons
     const nav = document.createElement('div');
     nav.className = 'quiz-nav';
 
-    // Back button (if not first question)
     if (currentIndex > 0) {
       const backBtn = document.createElement('button');
       backBtn.type = 'button';
@@ -120,26 +118,21 @@ document.addEventListener('DOMContentLoaded', () => {
       nav.appendChild(spacer);
     }
 
-    // Next/Finish button
     const nextBtn = document.createElement('button');
     nextBtn.type = 'button';
     nextBtn.className = 'quiz-btn quiz-btn--primary';
     nextBtn.textContent = currentIndex === quizData.length - 1 ? 'Finish' : 'Next ➡';
     nextBtn.addEventListener('click', () => {
       const selected = document.querySelector('input[name="answer"]:checked');
-      if (!selected) { 
-        alert('Please select an answer!'); 
-        return; 
+      if (!selected) {
+        alert('Please select an answer!');
+        return;
       }
-      
-      // Check if answer is correct
-      if (selected.value === q.correct_answer) {
-        score++;
-      }
-      
+
+      // Store user answer for this question index
+      userAnswers[currentIndex] = selected.value;
       currentIndex++;
-      
-      // Show next question or results
+
       if (currentIndex < quizData.length) {
         showQuestion();
       } else {
@@ -153,9 +146,34 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(container);
   }
 
-  // Display final results
   function showResult() {
     document.querySelector('#questions')?.remove();
+    
+    // Your approach: compare userAnswers map with correct answers
+    let score = 0;
+    
+    console.log('=== SCORE CALCULATION ===');
+    console.log('Total questions:', quizData.length);
+    console.log('User answers map:', userAnswers);
+    
+    // Go through each question and check if user got it right
+    for (let i = 0; i < quizData.length; i++) {
+      const userAnswer = userAnswers[i];
+      const correctAnswer = quizData[i].correct_answer;
+      
+      console.log(`Q${i}: User="${userAnswer}" vs Correct="${correctAnswer}"`);
+      
+      if (userAnswer === correctAnswer) {
+        score++;
+        console.log(`✓ Correct! Score now: ${score}`);
+      } else {
+        console.log(`✗ Wrong`);
+      }
+    }
+    
+    console.log('Final score:', score);
+    console.log('========================');
+
     const container = document.createElement('div');
     container.id = 'questions';
 
@@ -172,21 +190,18 @@ document.addEventListener('DOMContentLoaded', () => {
     container.appendChild(card);
     document.body.appendChild(container);
 
-    // Restart functionality
     document.getElementById('restartBtn').addEventListener('click', () => {
-      score = 0;
       currentIndex = 0;
+      userAnswers = {};
       container.remove();
       quizForm.style.display = 'block';
     });
   }
 
-  // Utility function to shuffle array
   function shuffleArray(arr) {
     return arr.slice().sort(() => Math.random() - 0.5);
   }
 
-  // Utility function to decode HTML entities
   function decodeHTMLEntities(str) {
     const txt = document.createElement('textarea');
     txt.innerHTML = str;
