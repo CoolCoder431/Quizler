@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const checkLogin = require('../Controller/login.js');
+const checkLogin = require('../controller/login.js');
 const SignUp = require('../controller/signup.js'); 
 
 router.post('/login', checkLogin);
