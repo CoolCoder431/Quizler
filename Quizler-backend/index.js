@@ -47,7 +47,7 @@ app.get('/profile', authenticateToken, (req, res) => {
         return res.status(403).send(`
             <script>
                 alert("Please login to access your profile.");
-                window.location.href = "/login.html";
+                history.back();
             </script>
         `);
     }
