@@ -10,7 +10,7 @@ require('dotenv').config();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors({ origin: true, credentials: true })); // Allows all origins
+app.use(cors({ origin: true, credentials: true })); 
 
 
 const PORT = process.env.PORT || 3000;
@@ -25,7 +25,7 @@ app.use(routes);
 
 const authenticateToken = require('./middleware/authentication.js');
 
-// Protected API route
+
 app.get('/api/dashboard', authenticateToken, (req, res) => {
     res.json({
         message: `Welcome ${req.user.email}`,
@@ -33,7 +33,7 @@ app.get('/api/dashboard', authenticateToken, (req, res) => {
     });
 });
 
-// Protected HTML routes - MAKE SURE THESE ARE HERE
+
 app.get('/home', authenticateToken, (req, res) => {
     res.sendFile(path.join(__dirname, '../Quizler-frontend/home.html'));
 });
@@ -46,7 +46,7 @@ app.get('/profile', authenticateToken, (req, res) => {
     res.sendFile(path.join(__dirname, '../Quizler-frontend/profile.html'));
 });
 
-// Middleware to block direct access to HTML files
+
 const protectedFiles = ['home.html', 'quiz.html', 'profile.html'];
 app.use((req, res, next) => {
     if (protectedFiles.some(file => req.path.endsWith(file))) {
@@ -55,7 +55,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// Serve static files
+
 app.use(express.static(path.join(__dirname, '../Quizler-frontend')));
 
 app.listen(PORT, '0.0.0.0', () => console.log('up on', PORT));

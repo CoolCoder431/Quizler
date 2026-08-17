@@ -149,30 +149,22 @@ document.addEventListener('DOMContentLoaded', () => {
   function showResult() {
     document.querySelector('#questions')?.remove();
     
-    // Your approach: compare userAnswers map with correct answers
+
     let score = 0;
     
-    console.log('=== SCORE CALCULATION ===');
-    console.log('Total questions:', quizData.length);
-    console.log('User answers map:', userAnswers);
-    
-    // Go through each question and check if user got it right
+
     for (let i = 0; i < quizData.length; i++) {
       const userAnswer = userAnswers[i];
       const correctAnswer = quizData[i].correct_answer;
       
-      console.log(`Q${i}: User="${userAnswer}" vs Correct="${correctAnswer}"`);
       
       if (userAnswer === correctAnswer) {
         score++;
-        console.log(`✓ Correct! Score now: ${score}`);
       } else {
         console.log(`✗ Wrong`);
       }
     }
     
-    console.log('Final score:', score);
-    console.log('========================');
 
     const container = document.createElement('div');
     container.id = 'questions';

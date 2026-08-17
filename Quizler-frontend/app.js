@@ -20,12 +20,11 @@ form.addEventListener('submit', async (e) => {
             body: JSON.stringify({ email, password })
         });
 
-        // Check if the response is a successful redirect (status 2xx)
+
         if (res.ok) {
             console.log("Login successful, redirecting to /home");
             window.location.href = '/home';
         } else {
-            // If the response is not ok, it might still contain a JSON message
             const data = await res.json();
             alert(data.message || "Login failed. Please try again.");
         }

@@ -9,12 +9,22 @@
 </head>
 <body>
     <form id="login-form" method="POST" class="login-table">
-        Email<input type="email" name="email">
-        Password <input type="password" name="password">
-        <button>Login</button>
-        <br><br>
-        Don't have an account ? <a href="https://quizler-yu0r.onrender.com/Signup.html">signup</a>
-    </form>
+    Email<input type="email" name="email">
+    Password <input type="password" name="password">
+
+    <button type="submit">Login</button>
+
+    <br><br>
+
+    <button type="button" onclick="window.location.href='/guest-login'">
+        Continue as Guest
+    </button>
+
+    <br><br>
+
+    Don't have an account ?
+    <a href="https://quizler-yu0r.onrender.com/Signup.html">signup</a>
+</form>
     <script src="app.js" defer></script>
 </body>
 </html>
