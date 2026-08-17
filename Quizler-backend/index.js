@@ -43,6 +43,14 @@ app.get('/quiz', authenticateToken, (req, res) => {
 });
 
 app.get('/profile', authenticateToken, (req, res) => {
+     if (req.user.isGuest) {
+        return res.status(403).send(`
+            <script>
+                alert("Please login to access your profile.");
+                window.location.href = "/login.html";
+            </script>
+        `);
+    }
     res.sendFile(path.join(__dirname, '../Quizler-frontend/profile.html'));
 });
 
