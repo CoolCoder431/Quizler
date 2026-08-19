@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let quizData = [];
   let currentIndex = 0;
   let userAnswers = {}; 
+  let selectedTopic = '';
+  let selectedDifficulty = '';
 
   document.querySelectorAll('.difficulty-buttons button').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -18,30 +20,51 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
 
     const questionCount = document.querySelector('#questionCount').value;
-    const difficulty = difficultyInput.value;
-    const topic = document.querySelector('#topics').value;
+    selectedDifficulty = difficultyInput.value;
+    selectedTopic = document.querySelector('#topics').value;
 
-    if (!difficulty) {
+    if (!selectedDifficulty) {
       alert('Please select a difficulty!');
       return;
     }
 
     const categoryMap = {
-      Mythology: 20,
-      Sports: 21,
-      Geography: 22,
-      Animals: 27
-    };
+    "General Knowledge": 9,
+    "Books": 10,
+    "Film": 11,
+    "Music": 12,
+    "Theatre": 13,
+    "TV": 14,
+    "Video Games": 15,
+    "Board Games": 16,
+    "Science": 17,
+    "Computers": 18,
+    "Mathematics": 19,
+    "Mythology": 20,
+    "Sports": 21,
+    "Geography": 22,
+    "History": 23,
+    "Politics": 24,
+    "Art": 25,
+    "Celebrities": 26,
+    "Animals": 27,
+    "Vehicles": 28,
+    "Comics": 29,
+    "Gadgets": 30,
+    "Anime & Manga": 31,
+    "Cartoons": 32
+};
 
-    const categoryId = categoryMap[topic];
-    const apiUrl = `https://opentdb.com/api.php?amount=${questionCount}&category=${categoryId}&difficulty=${difficulty}&type=multiple`;
+    const categoryId = categoryMap[selectedTopic];
+
+    const apiUrl = `https://opentdb.com/api.php?amount=${questionCount}&category=${categoryId}&difficulty=${selectedDifficulty}&type=multiple`;
 
     try {
       const res = await fetch(apiUrl);
       const data = await res.json();
 
       if (!data.results.length) {
-        alert(`No questions for ${topic} - ${difficulty}. Try a different combo.`);
+        alert(`No questions for ${selectedTopic} - ${selectedDifficulty}. Try a different combo.`);
         return;
       }
 
@@ -83,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
       input.name = 'answer';
       input.value = ans;
 
-      // Restore previous selection if exists
+      
       if (userAnswers[currentIndex] === ans) {
         input.checked = true;
       }
@@ -146,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(container);
   }
 
-  function showResult() {
+  async function showResult() {
     document.querySelector('#questions')?.remove();
     
 
@@ -164,6 +187,26 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(`✗ Wrong`);
       }
     }
+
+    try {
+
+    await fetch('/quiz-result', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+            category: selectedTopic,
+            difficulty: selectedDifficulty,
+            totalQuestions: quizData.length,
+            correctAnswers: score
+        })
+    });
+
+} catch (error) {
+    console.error('Failed to save quiz result:', error);
+}
     
 
     const container = document.createElement('div');
