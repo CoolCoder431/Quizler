@@ -4,7 +4,7 @@ const SignUp = require('../controller/signup.js');
 const guestLogin = require('../controller/guestLogin.js');
 
 const authenticateToken = require('../middleware/authentication.js');
-const QuizResult = require('../models/QuizResult.js');
+const QuizResult = require('../Model/QuizResult.js');
 
 
 router.get('/guest-login', guestLogin);
